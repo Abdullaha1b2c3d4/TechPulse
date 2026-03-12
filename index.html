@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechPulse — AI Tools, Web Development & Tech Insights</title>
+    <meta name="description" content="Explore the latest AI tools, web development tutorials, and tech insights. Stay ahead with in-depth reviews, guides, and industry news.">
+    <meta name="keywords" content="AI tools, web development, tech news, programming, artificial intelligence, coding tutorials">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            200: '#c7d2fe',
+                            300: '#a5b4fc',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#312e81',
+                        },
+                        dark: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .dark-glass {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+        }
+
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.15);
+        }
+
+        .hero-pattern {
+            background-image: radial-gradient(circle at 1px 1px, rgba(99, 102, 241, 0.15) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+
+        .blob {
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation: blob 8s ease-in-out infinite;
+        }
+
+        @keyframes blob {
+            0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            25% { border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%; }
+            50% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; }
+            75% { border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%; }
+        }
+
+        .float { animation: float 6s ease-in-out infinite; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+            color: #6366f1;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .marquee {
+            animation: scroll 30s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #4f46e5; }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #6366f1, #a78bfa);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after { width: 100%; }
+
+        .search-highlight {
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+        }
+
+        .tag-pill {
+            transition: all 0.3s ease;
+        }
+
+        .tag-pill:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .pulse-dot {
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+        }
+
+        .modal-overlay {
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-dark-950 text-white antialiased overflow-x-hidden">
+
+    <!-- ============ NAVIGATION ============ -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 lg:h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold">Tech<span class="gradient-text">Pulse</span></span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center space-x-1">
+                    <a href="#home" class="nav-link relative px-4 py-2 text-sm font-medium text-dark-300 hover:text-white transition-colors">Home</a>
+                    <a href="#articles" class="nav-link relative px-4 py-2 text-sm font-medium text-dark-300 hover:text-white transition-colors">Articles</a>
+                    <a href="#ai-tools" class="nav-link relative px-4 py-2 text-sm font-medium text-dark-300 hover:text-white transition-colors">AI Tools</a>
+                    <a href="#about" class="nav-link relative px-4 py-2 text-sm font-medium text-dark-300 hover:text-white transition-colors">About</a>
+                    <a href="#contact" class="nav-link relative px-4 py-2 text-sm font-medium text-dark-300 hover:text-white transition-colors">Contact</a>
+                </div>
+
+                <!-- Right Side -->
+                <div class="flex items-center space-x-3">
+                    <!-- Search -->
+                    <button onclick="toggleSearch()" class="p-2 rounded-xl text-dark-400 hover:text-white hover:bg-dark-800 transition-all">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </button>
+
+                    <!-- Theme Toggle -->
+                    <button onclick="toggleTheme()" class="p-2 rounded-xl text-dark-400 hover:text-white hover:bg-dark-800 transition-all">
+                        <svg id="theme-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                        </svg>
+                    </button>
+
+                    <!-- Subscribe Button -->
+                    <a href="#newsletter" class="hidden sm:inline-flex items-center px-5 py-2.5 gradient-bg text-white text-sm font-semibold rounded-xl hover:opacity-90 transition-opacity shadow-lg shadow-primary-500/25">
+                        Subscribe
+                    </a>
+
+                    <!-- Mobile Menu Button -->
+                    <button onclick="toggleMobile()" class="lg:hidden p-2 rounded-xl text-dark-400 hover:text-white hover:bg-dark-800 transition-all">
+                        <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden dark-glass border-t border-dark-800">
+            <div class="px-4 py-6 space-y-2">
+                <a href="#home" onclick="toggleMobile()" class="block px-4 py-3 rounded-xl text-dark-300 hover:text-white hover:bg-dark-800 transition-all">Home</a>
+                <a href="#articles" onclick="toggleMobile()" class="block px-4 py-3 rounded-xl text-dark-300 hover:text-white hover:bg-dark-800 transition-all">Articles</a>
+                <a href="#ai-tools" onclick="toggleMobile()" class="block px-4 py-3 rounded-xl text-dark-300 hover:text-white hover:bg-dark-800 transition-all">AI Tools</a>
+                <a href="#about" onclick="toggleMobile()" class="block px-4 py-3 rounded-xl text-dark-300 hover:text-white hover:bg-dark-800 transition-all">About</a>
+                <a href="#contact" onclick="toggleMobile()" class="block px-4 py-3 rounded-xl text-dark-300 hover:text-white hover:bg-dark-800 transition-all">Contact</a>
+                <a href="#newsletter" onclick="toggleMobile()" class="block px-4 py-3 rounded-xl gradient-bg text-white text-center font-semibold mt-4">Subscribe</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============ SEARCH MODAL ============ -->
+    <div id="search-modal" class="fixed inset-0 z-[60] hidden">
+        <div class="modal-overlay absolute inset-0 bg-dark-950/80 backdrop-blur-sm" onclick="toggleSearch()"></div>
+        <div class="relative max-w-2xl mx-auto mt-24 px-4">
+            <div class="bg-dark-900 border border-dark-700 rounded-2xl shadow-2xl overflow-hidden">
+                <div class="flex items-center px-6 py-4 border-b border-dark-700">
+                    <svg class="w-5 h-5 text-dark-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                    <input id="search-input" type="text" placeholder="Search articles, tools, tutorials..." class="flex-1 bg-transparent text-white placeholder-dark-400 outline-none text-lg" oninput="handleSearch(this.value)">
+                    <kbd class="hidden sm:inline-flex px-2 py-1 text-xs font-mono text-dark-400 bg-dark-800 rounded-lg border border-dark-600">ESC</kbd>
+                </div>
+                <div id="search-results" class="max-h-80 overflow-y-auto p-3">
+                    <p class="text-center text-dark-500 py-8">Start typing to search...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ HERO SECTION ============ -->
+    <section id="home" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        <!-- Background Effects -->
+        <div class="absolute inset-0 hero-pattern"></div>
+        <div class="absolute top-20 left-10 w-72 h-72 bg-primary-500/20 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/15 rounded-full blur-[120px]"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-600/5 blob"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- Left Content -->
+                <div class="text-center lg:text-left">
+                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-primary-500/10 border border-primary-500/20 mb-8">
+                        <span class="w-2 h-2 rounded-full bg-green-400 mr-2 pulse-dot"></span>
+                        <span class="text-sm font-medium text-primary-300">New articles published weekly</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight tracking-tight mb-6">
+                        Explore The
+                        <br>
+                        <span class="gradient-text">Future of Tech</span>
+                        <br>
+                        <span id="typed-text" class="typing-cursor"></span>
+                    </h1>
+
+                    <p class="text-lg sm:text-xl text-dark-400 max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed">
+                        Your go-to destination for AI tool reviews, web development tutorials, and cutting-edge tech insights. Learn, build, and innovate.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#articles" class="group inline-flex items-center justify-center px-8 py-4 gradient-bg text-white font-semibold rounded-2xl hover:opacity-90 transition-all shadow-xl shadow-primary-500/25">
+                            Explore Articles
+                            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </a>
+                        <a href="#ai-tools" class="inline-flex items-center justify-center px-8 py-4 bg-dark-800 border border-dark-700 text-white font-semibold rounded-2xl hover:bg-dark-700 hover:border-dark-600 transition-all">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            Browse AI Tools
+                        </a>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="grid grid-cols-3 gap-6 mt-14 pt-10 border-t border-dark-800">
+                        <div>
+                            <div class="text-3xl font-black gradient-text" id="stat1">0</div>
+                            <div class="text-sm text-dark-500 mt-1">Articles</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-black gradient-text" id="stat2">0</div>
+                            <div class="text-sm text-dark-500 mt-1">AI Tools Reviewed</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-black gradient-text" id="stat3">0</div>
+                            <div class="text-sm text-dark-500 mt-1">Monthly Readers</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Visual -->
+                <div class="relative hidden lg:block">
+                    <div class="relative float">
+                        <!-- Code Editor Card -->
+                        <div class="bg-dark-900 border border-dark-700 rounded-2xl overflow-hidden shadow-2xl">
+                            <!-- Editor Header -->
+                            <div class="flex items-center justify-between px-4 py-3 border-b border-dark-700 bg-dark-900/50">
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                </div>
+                                <span class="text-xs text-dark-500 font-mono">techpulse.js</span>
+                                <div class="w-16"></div>
+                            </div>
+                            <!-- Code Content -->
+                            <div class="p-6 font-mono text-sm leading-relaxed">
+                                <div><span class="text-purple-400">const</span> <span class="text-blue-300">techPulse</span> <span class="text-white">=</span> <span class="text-yellow-300">{</span></div>
+                                <div class="ml-4"><span class="text-green-300">mission</span><span class="text-white">:</span> <span class="text-amber-300">"Empowering developers"</span><span class="text-white">,</span></div>
+                                <div class="ml-4"><span class="text-green-300">topics</span><span class="text-white">:</span> <span class="text-white">[</span></div>
+                                <div class="ml-8"><span class="text-amber-300">"🤖 AI Tools"</span><span class="text-white">,</span></div>
+                                <div class="ml-8"><span class="text-amber-300">"💻 Web Development"</span><span class="text-white">,</span></div>
+                                <div class="ml-8"><span class="text-amber-300">"🚀 Tech Innovation"</span></div>
+                                <div class="ml-4"><span class="text-white">],</span></div>
+                                <div class="ml-4"><span class="text-green-300">quality</span><span class="text-white">:</span> <span class="text-amber-300">"✨ Premium"</span></div>
+                                <div><span class="text-yellow-300">}</span><span class="text-white">;</span></div>
+                                <div class="mt-3"><span class="text-purple-400">export default</span> <span class="text-blue-300">techPulse</span><span class="text-white">;</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Badge 1 -->
+                        <div class="absolute -top-6 -right-6 bg-dark-800 border border-dark-600 rounded-2xl p-4 shadow-xl" style="animation: float 4s ease-in-out infinite;">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-green-500/20 rounded-xl flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-dark-400">Readers</div>
+                                    <div class="text-sm font-bold text-white">+47% ↑</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Badge 2 -->
+                        <div class="absolute -bottom-4 -left-8 bg-dark-800 border border-dark-600 rounded-2xl p-4 shadow-xl" style="animation: float 5s ease-in-out infinite 1s;">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-primary-500/20 rounded-xl flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-dark-400">New Tools</div>
+                                    <div class="text-sm font-bold text-white">12 this week</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center">
+            <span class="text-xs text-dark-500 mb-3 tracking-widest uppercase">Scroll</span>
+            <div class="w-6 h-10 border-2 border-dark-600 rounded-full flex justify-center">
+                <div class="w-1.5 h-3 bg-primary-500 rounded-full mt-2 animate-bounce"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ MARQUEE BRANDS ============ -->
+    <section class="py-8 border-y border-dark-800 bg-dark-900/50 overflow-hidden">
+        <div class="flex items-center marquee whitespace-nowrap">
+            <div class="flex items-center space-x-12 px-6">
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">⚡ React</span>
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">🤖 ChatGPT</span>
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">🎨 Tailwind CSS</span>
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">🧠 TensorFlow</span>
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">🔷 TypeScript</span>
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">🐍 Python</span>
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">⚛️ Next.js</span>
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">🤗 Hugging Face</span>
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">🔥 Firebase</span>
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">🐳 Docker</span>
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">☁️ AWS</span>
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">🎯 Midjourney</span>
+            </div>
+            <div class="flex items-center space-x-12 px-6">
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">⚡ React</span>
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">🤖 ChatGPT</span>
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">🎨 Tailwind CSS</span>
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">🧠 TensorFlow</span>
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">🔷 TypeScript</span>
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">🐍 Python</span>
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">⚛️ Next.js</span>
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">🤗 Hugging Face</span>
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">🔥 Firebase</span>
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">🐳 Docker</span>
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">☁️ AWS</span>
+                <span class="text-dark-500 font-semibold text-lg flex items-center gap-2">🎯 Midjourney</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CATEGORIES ============ -->
+    <section class="py-20 lg:py-28 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <span class="inline-block px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary-400 bg-primary-500/10 rounded-full mb-4">Categories</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-4">What We <span class="gradient-text">Cover</span></h2>
+                <p class="text-lg text-dark-400 max-w-2xl mx-auto">Deep dives into the technologies shaping our future</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 fade-in">
+                <!-- Category 1: AI Tools -->
+                <div class="group card-hover bg-dark-900 border border-dark-800 rounded-2xl p-8 hover:border-primary-500/50 cursor-pointer">
+                    <div class="w-14 h-14 gradient-bg rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">AI Tools & Reviews</h3>
+                    <p class="text-dark-400 leading-relaxed mb-6">Comprehensive reviews and comparisons of the latest AI tools, from ChatGPT to Midjourney, Claude, and beyond.</p>
+                    <div class="flex items-center text-primary-400 text-sm font-semibold group-hover:gap-3 gap-2 transition-all">
+                        Explore <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </div>
+                </div>
+
+                <!-- Category 2: Web Dev -->
+                <div class="group card-hover bg-dark-900 border border-dark-800 rounded-2xl p-8 hover:border-emerald-500/50 cursor-pointer">
+                    <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Web Development</h3>
+                    <p class="text-dark-400 leading-relaxed mb-6">Tutorials, best practices, and frameworks for modern web development including React, Next.js, and Tailwind CSS.</p>
+                    <div class="flex items-center text-emerald-400 text-sm font-semibold group-hover:gap-3 gap-2 transition-all">
+                        Explore <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </div>
+                </div>
+
+                <!-- Category 3: Tech News -->
+                <div class="group card-hover bg-dark-900 border border-dark-800 rounded-2xl p-8 hover:border-amber-500/50 cursor-pointer">
+                    <div class="w-14 h-14 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Tech News & Trends</h3>
+                    <p class="text-dark-400 leading-relaxed mb-6">Stay updated with the latest technology news, industry trends, product launches, and breaking developments.</p>
+                    <div class="flex items-center text-amber-400 text-sm font-semibold group-hover:gap-3 gap-2 transition-all">
+                        Explore <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FEATURED ARTICLE (DYNAMIC) ============ -->
+    <section class="py-20 lg:py-28 bg-dark-900/50 border-y border-dark-800 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-primary-500/5 rounded-full blur-[120px]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="text-center mb-16 fade-in">
+                <span class="inline-block px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary-400 bg-primary-500/10 rounded-full mb-4">Featured</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-4">Editor's <span class="gradient-text">Pick</span></h2>
+            </div>
+
+            <div id="featured-container" class="grid lg:grid-cols-2 gap-8 fade-in">
+                <!-- Dynamically populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ LATEST ARTICLES (DYNAMIC) ============ -->
+    <section id="articles" class="py-20 lg:py-28 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-16 fade-in">
+                <div>
+                    <span class="inline-block px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary-400 bg-primary-500/10 rounded-full mb-4">Blog</span>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black">Latest <span class="gradient-text">Articles</span></h2>
+                </div>
+                <!-- Filter Tabs -->
+                <div class="flex flex-wrap gap-2 mt-6 sm:mt-0" id="filter-tabs">
+                    <button onclick="filterArticles('all')" class="filter-btn active px-4 py-2 text-sm font-medium rounded-xl bg-primary-500 text-white transition-all" data-filter="all">All</button>
+                    <button onclick="filterArticles('ai')" class="filter-btn px-4 py-2 text-sm font-medium rounded-xl bg-dark-800 text-dark-400 hover:text-white transition-all" data-filter="ai">AI Tools</button>
+                    <button onclick="filterArticles('webdev')" class="filter-btn px-4 py-2 text-sm font-medium rounded-xl bg-dark-800 text-dark-400 hover:text-white transition-all" data-filter="webdev">Web Dev</button>
+                    <button onclick="filterArticles('tech')" class="filter-btn px-4 py-2 text-sm font-medium rounded-xl bg-dark-800 text-dark-400 hover:text-white transition-all" data-filter="tech">Tech</button>
+                </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8" id="articles-grid">
+                <!-- Dynamically populated by JavaScript -->
+            </div>
+
+            <!-- Load More -->
+            <div class="text-center mt-12 fade-in">
+                <button onclick="loadMoreArticles()" class="inline-flex items-center px-8 py-4 bg-dark-800 border border-dark-700 text-white font-semibold rounded-2xl hover:bg-dark-700 hover:border-dark-600 transition-all group" id="load-more-btn">
+                    Load More Articles
+                    <svg class="w-5 h-5 ml-2 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ AI TOOLS SECTION (DYNAMIC) ============ -->
+    <section id="ai-tools" class="py-20 lg:py-28 bg-dark-900/50 border-y border-dark-800 relative overflow-hidden">
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/5 rounded-full blur-[120px]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="text-center mb-16 fade-in">
+                <span class="inline-block px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary-400 bg-primary-500/10 rounded-full mb-4">AI Directory</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-4">Top AI <span class="gradient-text">Tools</span></h2>
+                <p class="text-lg text-dark-400 max-w-2xl mx-auto">Hand-picked and reviewed AI tools to supercharge your workflow</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 fade-in" id="ai-tools-grid">
+                <!-- Dynamically populated by JavaScript -->
+            </div>
+
+            <div class="text-center mt-12 fade-in">
+                <a href="#" class="inline-flex items-center px-8 py-4 gradient-bg text-white font-semibold rounded-2xl hover:opacity-90 transition-opacity shadow-lg shadow-primary-500/25 group">
+                    View All AI Tools
+                    <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ TUTORIALS (DYNAMIC) ============ -->
+    <!-- <section id="tutorials" class="py-20 lg:py-28 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <span class="inline-block px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary-400 bg-primary-500/10 rounded-full mb-4">Learn</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-4">Free <span class="gradient-text">Tutorials</span></h2>
+                <p class="text-lg text-dark-400 max-w-2xl mx-auto">Step-by-step guides to help you master modern web technologies</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 fade-in" id="tutorials-grid">
+                 Dynamically populated by JavaScript 
+             </div>
+        </div>
+    </section> -->
+
+    <!-- ============ NEWSLETTER ============ -->
+    <section id="newsletter" class="py-20 lg:py-28 relative overflow-hidden">
+        <div class="absolute inset-0 gradient-bg opacity-10"></div>
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-primary-500/20 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-[120px]"></div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="bg-dark-900 border border-dark-700 rounded-3xl p-8 sm:p-12 lg:p-16 text-center fade-in">
+                <div class="w-16 h-16 mx-auto gradient-bg rounded-2xl flex items-center justify-center mb-8">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+
+                <h2 class="text-3xl sm:text-4xl font-black mb-4">Stay in the <span class="gradient-text">Loop</span></h2>
+                <p class="text-lg text-dark-400 max-w-lg mx-auto mb-10">Get weekly curated content on AI tools, web development tips, and tech trends delivered straight to your inbox.</p>
+
+                <form id="newsletter-form" class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto" onsubmit="handleNewsletter(event)">
+                    <input type="email" placeholder="Enter your email address" required class="flex-1 px-6 py-4 bg-dark-800 border border-dark-600 rounded-2xl text-white placeholder-dark-500 outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all">
+                    <button type="submit" class="px-8 py-4 gradient-bg text-white font-semibold rounded-2xl hover:opacity-90 transition-opacity whitespace-nowrap shadow-lg shadow-primary-500/25">
+                        Subscribe
+                    </button>
+                </form>
+                <p class="text-sm text-dark-500 mt-4">No spam, ever. Unsubscribe anytime.</p>
+
+                <div id="newsletter-success" class="hidden mt-6 px-6 py-4 bg-green-500/10 border border-green-500/20 rounded-2xl text-green-400 font-medium">
+                    🎉 You're subscribed! Check your inbox for a confirmation email.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about" class="py-20 lg:py-28 bg-dark-900/50 border-y border-dark-800 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Left -->
+                <div class="fade-in">
+                    <span class="inline-block px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary-400 bg-primary-500/10 rounded-full mb-4">About Us</span>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-6">We're Passionate About <span class="gradient-text">Technology</span></h2>
+                    <p class="text-lg text-dark-400 leading-relaxed mb-6">
+                        TechPulse was founded with a simple mission: to make technology accessible and understandable for everyone. Whether you're a seasoned developer or just starting your tech journey, we provide high-quality content that informs, educates, and inspires.
+                    </p>
+                    <p class="text-lg text-dark-400 leading-relaxed mb-8">
+                        Our team of writers, developers, and tech enthusiasts carefully research and test every tool, framework, and technology we cover. We believe in honest, unbiased reviews and practical, actionable tutorials.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="bg-dark-800 rounded-2xl p-6 border border-dark-700">
+                            <div class="text-3xl font-black gradient-text mb-1">500+</div>
+                            <div class="text-sm text-dark-400">Articles Published</div>
+                        </div>
+                        <div class="bg-dark-800 rounded-2xl p-6 border border-dark-700">
+                            <div class="text-3xl font-black gradient-text mb-1">50K+</div>
+                            <div class="text-sm text-dark-400">Monthly Readers</div>
+                        </div>
+                        <div class="bg-dark-800 rounded-2xl p-6 border border-dark-700">
+                            <div class="text-3xl font-black gradient-text mb-1">100+</div>
+                            <div class="text-sm text-dark-400">AI Tools Reviewed</div>
+                        </div>
+                        <div class="bg-dark-800 rounded-2xl p-6 border border-dark-700">
+                            <div class="text-3xl font-black gradient-text mb-1">15+</div>
+                            <div class="text-sm text-dark-400">Team Members</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right -->
+                <div class="fade-in">
+                    <div class="relative">
+                        <div class="bg-dark-800 border border-dark-700 rounded-2xl p-8">
+                            <h3 class="text-xl font-bold mb-6">Our Values</h3>
+                            <div class="space-y-6">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 flex-shrink-0 gradient-bg rounded-xl flex items-center justify-center">
+                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Accuracy First</h4>
+                                        <p class="text-sm text-dark-400">Every article is fact-checked and every tool is personally tested by our team.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 flex-shrink-0 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center">
+                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Unbiased Reviews</h4>
+                                        <p class="text-sm text-dark-400">No sponsored reviews. We provide honest assessments based on real-world usage.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 flex-shrink-0 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center">
+                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Community Driven</h4>
+                                        <p class="text-sm text-dark-400">We listen to our readers and create content that genuinely helps solve problems.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 flex-shrink-0 bg-gradient-to-br from-rose-500 to-pink-600 rounded-xl flex items-center justify-center">
+                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold mb-1">Always Updated</h4>
+                                        <p class="text-sm text-dark-400">Technology moves fast. We keep our content fresh and up-to-date with the latest changes.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section id="contact" class="py-20 lg:py-28 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <span class="inline-block px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary-400 bg-primary-500/10 rounded-full mb-4">Contact</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-4">Get in <span class="gradient-text">Touch</span></h2>
+                <p class="text-lg text-dark-400 max-w-2xl mx-auto">Have a question, suggestion, or want to collaborate? We'd love to hear from you.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8 fade-in">
+                <!-- Contact Info -->
+                <div class="space-y-6">
+                    <div class="bg-dark-900 border border-dark-800 rounded-2xl p-6 hover:border-primary-500/30 transition-colors">
+                        <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-bold mb-1">Email Us</h3>
+                        <p class="text-dark-400 text-sm">contact@techpulse.com</p>
+                    </div>
+
+                    <div class="bg-dark-900 border border-dark-800 rounded-2xl p-6 hover:border-primary-500/30 transition-colors">
+                        <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-bold mb-1">Location</h3>
+                        <p class="text-dark-400 text-sm">San Francisco, CA, USA</p>
+                    </div>
+
+                    <div class="bg-dark-900 border border-dark-800 rounded-2xl p-6 hover:border-primary-500/30 transition-colors">
+                        <div class="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-bold mb-1">Response Time</h3>
+                        <p class="text-dark-400 text-sm">Within 24 hours</p>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:col-span-2">
+                    <form id="contact-form" class="bg-dark-900 border border-dark-800 rounded-2xl p-8" onsubmit="handleContact(event)">
+                        <div class="grid sm:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label class="block text-sm font-medium text-dark-300 mb-2">First Name</label>
+                                <input type="text" required placeholder="John" class="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-xl text-white placeholder-dark-500 outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-dark-300 mb-2">Last Name</label>
+                                <input type="text" required placeholder="Doe" class="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-xl text-white placeholder-dark-500 outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all">
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-dark-300 mb-2">Email Address</label>
+                            <input type="email" required placeholder="john@example.com" class="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-xl text-white placeholder-dark-500 outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-dark-300 mb-2">Subject</label>
+                            <select class="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-xl text-white outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all">
+                                <option value="" class="text-dark-500">Select a topic</option>
+                                <option>General Inquiry</option>
+                                <option>Article Suggestion</option>
+                                <option>Tool Submission</option>
+                                <option>Collaboration</option>
+                                <option>Bug Report</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-dark-300 mb-2">Message</label>
+                            <textarea rows="5" required placeholder="Tell us what's on your mind..." class="w-full px-4 py-3 bg-dark-800 border border-dark-700 rounded-xl text-white placeholder-dark-500 outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full sm:w-auto px-8 py-4 gradient-bg text-white font-semibold rounded-xl hover:opacity-90 transition-opacity shadow-lg shadow-primary-500/25">
+                            Send Message
+                        </button>
+                        <div id="contact-success" class="hidden mt-4 px-6 py-4 bg-green-500/10 border border-green-500/20 rounded-xl text-green-400 font-medium">
+                            ✅ Message sent successfully! We'll get back to you within 24 hours.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="bg-dark-900 border-t border-dark-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Main Footer -->
+            <div class="py-16 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-12">
+                <!-- Brand -->
+                <div class="col-span-2 md:col-span-4 lg:col-span-2">
+                    <a href="#" class="flex items-center space-x-3 mb-6">
+                        <div class="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <span class="text-xl font-bold">Tech<span class="gradient-text">Pulse</span></span>
+                    </a>
+                    <p class="text-dark-400 leading-relaxed mb-6 max-w-sm">Your trusted source for AI tool reviews, web development tutorials, and the latest tech insights. Join thousands of developers and tech enthusiasts.</p>
+                    <div class="flex items-center space-x-4">
+                        <a href="#" class="w-10 h-10 bg-dark-800 rounded-xl flex items-center justify-center text-dark-400 hover:text-white hover:bg-primary-600 transition-all">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-dark-800 rounded-xl flex items-center justify-center text-dark-400 hover:text-white hover:bg-primary-600 transition-all">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-dark-800 rounded-xl flex items-center justify-center text-dark-400 hover:text-white hover:bg-primary-600 transition-all">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-dark-800 rounded-xl flex items-center justify-center text-dark-400 hover:text-white hover:bg-primary-600 transition-all">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="font-bold text-white mb-4">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-dark-400 hover:text-white transition-colors text-sm">Home</a></li>
+                        <li><a href="#articles" class="text-dark-400 hover:text-white transition-colors text-sm">Articles</a></li>
+                        <li><a href="#ai-tools" class="text-dark-400 hover:text-white transition-colors text-sm">AI Tools</a></li>
+                        <li><a href="#tutorials" class="text-dark-400 hover:text-white transition-colors text-sm">Tutorials</a></li>
+                        <li><a href="#about" class="text-dark-400 hover:text-white transition-colors text-sm">About Us</a></li>
+                        <li><a href="#contact" class="text-dark-400 hover:text-white transition-colors text-sm">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Categories -->
+                <div>
+                    <h3 class="font-bold text-white mb-4">Categories</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-dark-400 hover:text-white transition-colors text-sm">AI Tools</a></li>
+                        <li><a href="#" class="text-dark-400 hover:text-white transition-colors text-sm">Web Development</a></li>
+                        <li><a href="#" class="text-dark-400 hover:text-white transition-colors text-sm">Tech News</a></li>
+                        <li><a href="#" class="text-dark-400 hover:text-white transition-colors text-sm">Programming</a></li>
+                        <li><a href="#" class="text-dark-400 hover:text-white transition-colors text-sm">Cybersecurity</a></li>
+                        <li><a href="#" class="text-dark-400 hover:text-white transition-colors text-sm">Gadgets</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h3 class="font-bold text-white mb-4">Legal</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#privacy" onclick="showPage('privacy')" class="text-dark-400 hover:text-white transition-colors text-sm">Privacy Policy</a></li>
+                        <li><a href="#terms" onclick="showPage('terms')" class="text-dark-400 hover:text-white transition-colors text-sm">Terms of Service</a></li>
+                        <li><a href="#disclaimer" onclick="showPage('disclaimer')" class="text-dark-400 hover:text-white transition-colors text-sm">Disclaimer</a></li>
+                        <li><a href="#" class="text-dark-400 hover:text-white transition-colors text-sm">Cookie Policy</a></li>
+                        <li><a href="#" class="text-dark-400 hover:text-white transition-colors text-sm">Sitemap</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Footer -->
+            <div class="py-8 border-t border-dark-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-sm text-dark-500">© 2025 TechPulse. All rights reserved.</p>
+                <div class="flex items-center gap-6">
+                    <a href="#privacy" onclick="showPage('privacy')" class="text-sm text-dark-500 hover:text-white transition-colors">Privacy</a>
+                    <a href="#terms" onclick="showPage('terms')" class="text-sm text-dark-500 hover:text-white transition-colors">Terms</a>
+                    <a href="#" class="text-sm text-dark-500 hover:text-white transition-colors">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============ PRIVACY POLICY MODAL ============ -->
+    <div id="privacy-modal" class="fixed inset-0 z-[70] hidden overflow-y-auto">
+        <div class="modal-overlay absolute inset-0 bg-dark-950/90 backdrop-blur-sm" onclick="closePages()"></div>
+        <div class="relative max-w-4xl mx-auto my-8 px-4">
+            <div class="bg-dark-900 border border-dark-700 rounded-2xl shadow-2xl">
+                <div class="flex items-center justify-between px-8 py-5 border-b border-dark-700 sticky top-0 bg-dark-900 rounded-t-2xl z-10">
+                    <h2 class="text-xl font-bold">Privacy Policy</h2>
+                    <button onclick="closePages()" class="p-2 rounded-xl hover:bg-dark-800 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+                <div class="p-8 prose prose-invert max-w-none">
+                    <p class="text-dark-400 mb-4"><strong>Last Updated:</strong> January 15, 2025</p>
+                    <h3 class="text-lg font-bold mt-6 mb-3">1. Information We Collect</h3>
+                    <p class="text-dark-400 mb-4">At TechPulse, we take your privacy seriously. We collect information you provide directly to us, such as when you subscribe to our newsletter, fill out a contact form, or interact with our content. This may include your name, email address, and any messages you send us.</p>
+                    <h3 class="text-lg font-bold mt-6 mb-3">2. How We Use Your Information</h3>
+                    <p class="text-dark-400 mb-4">We use the information we collect to provide, maintain, and improve our services, to send you newsletters and updates you've subscribed to, to respond to your comments and questions, and to analyze usage patterns to improve user experience.</p>
+                    <h3 class="text-lg font-bold mt-6 mb-3">3. Cookies and Tracking</h3>
+                    <p class="text-dark-400 mb-4">We use cookies and similar tracking technologies to collect information about your browsing activity. This includes analytics cookies (Google Analytics) to understand how visitors interact with our website, and advertising cookies to show relevant ads through Google AdSense.</p>
+                    <h3 class="text-lg font-bold mt-6 mb-3">4. Third-Party Services</h3>
+                    <p class="text-dark-400 mb-4">We use third-party services including Google AdSense for advertising and Google Analytics for website analytics. These services may collect data as described in their own privacy policies.</p>
+                    <h3 class="text-lg font-bold mt-6 mb-3">5. Data Security</h3>
+                    <p class="text-dark-400 mb-4">We implement appropriate security measures to protect your personal information. However, no method of transmission over the Internet is 100% secure, and we cannot guarantee absolute security.</p>
+                    <h3 class="text-lg font-bold mt-6 mb-3">6. Your Rights</h3>
+                    <p class="text-dark-400 mb-4">You have the right to access, update, or delete your personal information at any time. You can unsubscribe from our newsletter using the link in any email, or contact us to request data deletion.</p>
+                    <h3 class="text-lg font-bold mt-6 mb-3">7. Contact Us</h3>
+                    <p class="text-dark-400 mb-4">If you have any questions about this Privacy Policy, please contact us at contact@techpulse.com.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ TERMS MODAL ============ -->
+    <div id="terms-modal" class="fixed inset-0 z-[70] hidden overflow-y-auto">
+        <div class="modal-overlay absolute inset-0 bg-dark-950/90 backdrop-blur-sm" onclick="closePages()"></div>
+        <div class="relative max-w-4xl mx-auto my-8 px-4">
+            <div class="bg-dark-900 border border-dark-700 rounded-2xl shadow-2xl">
+                <div class="flex items-center justify-between px-8 py-5 border-b border-dark-700 sticky top-0 bg-dark-900 rounded-t-2xl z-10">
+                    <h2 class="text-xl font-bold">Terms of Service</h2>
+                    <button onclick="closePages()" class="p-2 rounded-xl hover:bg-dark-800 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+                <div class="p-8 prose prose-invert max-w-none">
+                    <p class="text-dark-400 mb-4"><strong>Last Updated:</strong> January 15, 2025</p>
+                    <h3 class="text-lg font-bold mt-6 mb-3">1. Acceptance of Terms</h3>
+                    <p class="text-dark-400 mb-4">By accessing and using TechPulse, you accept and agree to be bound by the terms and conditions of this agreement. If you do not agree to these terms, you should not use our website.</p>
+                    <h3 class="text-lg font-bold mt-6 mb-3">2. Use of Content</h3>
+                    <p class="text-dark-400 mb-4">All content on TechPulse, including articles, tutorials, and reviews, is protected by copyright laws. You may not reproduce, distribute, or create derivative works without our express written permission.</p>
+                    <h3 class="text-lg font-bold mt-6 mb-3">3. User Conduct</h3>
+                    <p class="text-dark-400 mb-4">You agree to use our website only for lawful purposes and in a way that does not infringe the rights of others. You must not transmit any harmful or malicious content.</p>
+                    <h3 class="text-lg font-bold mt-6 mb-3">4. Disclaimer</h3>
+                    <p class="text-dark-400 mb-4">The information provided on TechPulse is for general informational purposes only. While we strive for accuracy, we make no warranties about the completeness, reliability, or accuracy of this information. Tool reviews represent our opinions based on testing at the time of review.</p>
+                    <h3 class="text-lg font-bold mt-6 mb-3">5. Limitation of Liability</h3>
+                    <p class="text-dark-400 mb-4">TechPulse shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of our website or any content within it.</p>
+                    <h3 class="text-lg font-bold mt-6 mb-3">6. Changes to Terms</h3>
+                    <p class="text-dark-400 mb-4">We reserve the right to modify these terms at any time. Your continued use of the website after any changes constitutes your acceptance of the new terms.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ DISCLAIMER MODAL ============ -->
+    <div id="disclaimer-modal" class="fixed inset-0 z-[70] hidden overflow-y-auto">
+        <div class="modal-overlay absolute inset-0 bg-dark-950/90 backdrop-blur-sm" onclick="closePages()"></div>
+        <div class="relative max-w-4xl mx-auto my-8 px-4">
+            <div class="bg-dark-900 border border-dark-700 rounded-2xl shadow-2xl">
+                <div class="flex items-center justify-between px-8 py-5 border-b border-dark-700 sticky top-0 bg-dark-900 rounded-t-2xl z-10">
+                    <h2 class="text-xl font-bold">Disclaimer</h2>
+                    <button onclick="closePages()" class="p-2 rounded-xl hover:bg-dark-800 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+                <div class="p-8 prose prose-invert max-w-none">
+                    <p class="text-dark-400 mb-4">The information contained on TechPulse is for general information purposes only. The site assumes no responsibility for errors or omissions in the contents.</p>
+                    <p class="text-dark-400 mb-4">TechPulse may contain links to external websites that are not provided or maintained by or in any way affiliated with us. Please note that we do not guarantee the accuracy, relevance, timeliness, or completeness of any information on these external websites.</p>
+                    <p class="text-dark-400 mb-4"><strong>Affiliate Disclosure:</strong> Some of the links on this website may be affiliate links. This means that we may earn a commission if you click on the link or make a purchase using the link. When you make a purchase, the price you pay will be the same whether you use the affiliate link or go directly to the vendor's website.</p>
+                    <p class="text-dark-400 mb-4"><strong>Advertising:</strong> This website uses Google AdSense to display advertisements. Google AdSense uses cookies to serve ads based on your prior visits to this website or other websites. You may opt out of personalized advertising by visiting Google's Ads Settings.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ BACK TO TOP ============ -->
+    <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-8 right-8 z-50 w-12 h-12 gradient-bg rounded-full flex items-center justify-center text-white shadow-lg shadow-primary-500/25 opacity-0 invisible transition-all hover:scale-110">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+    </button>
+
+    <!-- ============ COOKIE CONSENT ============ -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-50 p-4 hidden">
+        <div class="max-w-4xl mx-auto bg-dark-900 border border-dark-700 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-2xl">
+            <p class="text-sm text-dark-400 text-center sm:text-left">🍪 We use cookies to enhance your experience and for analytics. By continuing to browse, you agree to our <a href="#privacy" onclick="showPage('privacy')" class="text-primary-400 underline">Privacy Policy</a>.</p>
+            <div class="flex gap-3 flex-shrink-0">
+                <button onclick="acceptCookies()" class="px-6 py-2.5 gradient-bg text-white text-sm font-semibold rounded-xl hover:opacity-90 transition-opacity">Accept</button>
+                <button onclick="declineCookies()" class="px-6 py-2.5 bg-dark-800 text-dark-300 text-sm font-semibold rounded-xl hover:bg-dark-700 transition-colors">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ JAVASCRIPT ============ -->
+    <script src="script.js"></script>
+
+</body>
+</html>
