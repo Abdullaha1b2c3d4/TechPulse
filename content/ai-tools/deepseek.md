@@ -6,5 +6,5 @@ stars: 5
 pricing: "234"
 pricingColor: sdf
 icon: deepseek
-gradient: segtwerg
+gradient: red
 ---
