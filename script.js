@@ -410,27 +410,22 @@ let aiTools = [];
         });
 
         // ========== INITIALIZE ==========
-       async function loadData() {
-
+async function loadData() {
     const repo = "Abdullaha1b2c3d4/TechPulse";
 
-    // Get list of markdown files
-    const list = await fetch(`https://api.github.com/repos/${repo}/contents/content/articles`);
-    const files = await list.json();
+    // ========== LOAD ARTICLES ==========
+    const listArticles = await fetch(`https://api.github.com/repos/${repo}/contents/content/articles`);
+    const filesArticles = await listArticles.json();
+    const mdArticles = filesArticles.filter(file => file.name.endsWith(".md"));
 
-    const mdFiles = files.filter(file => file.name.endsWith(".md"));
-
-    for (const file of mdFiles) {
-
+    for (const file of mdArticles) {
         const res = await fetch(file.download_url);
         const text = await res.text();
 
         // Extract YAML frontmatter
         const match = text.match(/---([\s\S]*?)---/);
-
         if (match) {
             const yaml = match[1];
-
             const article = {};
             yaml.split("\n").forEach(line => {
                 const [key, ...rest] = line.split(":");
@@ -439,11 +434,37 @@ let aiTools = [];
             });
 
             article.featured = article.featured === "true";
-
             articles.push(article);
         }
     }
 
+    // ========== LOAD AI TOOLS ==========
+    const listTools = await fetch(`https://api.github.com/repos/${repo}/contents/content/ai-tools`);
+    const filesTools = await listTools.json();
+    const mdTools = filesTools.filter(file => file.name.endsWith(".md"));
+
+    for (const file of mdTools) {
+        const res = await fetch(file.download_url);
+        const text = await res.text();
+
+        // Extract YAML frontmatter
+        const match = text.match(/---([\s\S]*?)---/);
+        if (match) {
+            const yaml = match[1];
+            const tool = {};
+            yaml.split("\n").forEach(line => {
+                const [key, ...rest] = line.split(":");
+                if (!key) return;
+                tool[key.trim()] = rest.join(":").trim();
+            });
+
+            tool.stars = Number(tool.stars || 0);
+            tool.rating = Number(tool.rating || 0);
+            aiTools.push(tool);
+        }
+    }
+
+    // ========== RENDER ==========
     renderFeatured();
     renderArticles('all');
     renderAITools();
