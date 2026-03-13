@@ -1,32 +1,21 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Admin Panel</title>
-  </head>
-  <body>
-    <!-- Load Identity first -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <script>
-      if (window.netlifyIdentity) {
-        // Initialize Identity and wait for token handling
-        window.netlifyIdentity.on('init', user => {
-          // After init, load CMS
-          loadCMS();
-        });
-        window.netlifyIdentity.init();
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel</title>
+</head>
 
-        // Optional: redirect after login
-        window.netlifyIdentity.on('login', user => {
-          document.location.href = '/admin/';
-        });
-      }
+<body>
 
-      function loadCMS() {
-        const cmsScript = document.createElement('script');
-        cmsScript.src = 'https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js';
-        document.body.appendChild(cmsScript);
-      }
-    </script>
-  </body>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+<script>
+if (window.netlifyIdentity) {
+  window.netlifyIdentity.init();
+}
+</script>
+
+<script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+
+</body>
 </html>
