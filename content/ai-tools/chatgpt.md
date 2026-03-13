@@ -1,9 +1,9 @@
 ---
 name: chatgpt
 description: chatgpt
-rating: 23
+rating: 9
 stars: 4
-pricing: "423"
+pricing: "4"
 pricingColor: sdft
 icon: chatgpt
 gradient: chatgpt
