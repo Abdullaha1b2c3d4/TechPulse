@@ -410,16 +410,40 @@ let aiTools = [];
         });
 
         // ========== INITIALIZE ==========
-        async function loadData() {
-    // Load articles
-    const articlesResponse = await fetch('/content/articles/index.json');
-    articles = await articlesResponse.json();
+       async function loadData() {
 
-    // Load AI tools
-    const toolsResponse = await fetch('/content/ai-tools/index.json');
-    aiTools = await toolsResponse.json();
+    const repo = "Abdullaha1b2c3d4/TechPulse";
 
-    // Render after data is loaded
+    // Get list of markdown files
+    const list = await fetch(`https://api.github.com/repos/${repo}/contents/content/articles`);
+    const files = await list.json();
+
+    const mdFiles = files.filter(file => file.name.endsWith(".md"));
+
+    for (const file of mdFiles) {
+
+        const res = await fetch(file.download_url);
+        const text = await res.text();
+
+        // Extract YAML frontmatter
+        const match = text.match(/---([\s\S]*?)---/);
+
+        if (match) {
+            const yaml = match[1];
+
+            const article = {};
+            yaml.split("\n").forEach(line => {
+                const [key, ...rest] = line.split(":");
+                if (!key) return;
+                article[key.trim()] = rest.join(":").trim();
+            });
+
+            article.featured = article.featured === "true";
+
+            articles.push(article);
+        }
+    }
+
     renderFeatured();
     renderArticles('all');
     renderAITools();
