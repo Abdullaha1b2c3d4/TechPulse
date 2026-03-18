@@ -130,30 +130,6 @@ let aiTools = [];
             renderArticles(activeFilter);
         }
 
-        function renderTutorials() {
-            const grid = document.getElementById('tutorials-grid');
-            grid.innerHTML = tutorials.map(tutorial => `
-                <div class="group card-hover bg-dark-900 border border-dark-800 rounded-2xl p-8 hover:border-${tutorial.levelColor}-500/30">
-                    <div class="flex items-start gap-5">
-                        <div class="w-14 h-14 flex-shrink-0 ${tutorial.gradient} rounded-2xl flex items-center justify-center font-bold text-xl text-white">${tutorial.number}</div>
-                        <div>
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="px-2 py-0.5 text-xs font-medium rounded bg-${tutorial.levelColor}-500/10 text-${tutorial.levelColor}-400">${tutorial.level}</span>
-                                <span class="px-2 py-0.5 text-xs font-medium rounded bg-dark-700 text-dark-400">${tutorial.tech}</span>
-                            </div>
-                            <h3 class="text-lg font-bold mb-2 group-hover:text-${tutorial.levelColor}-400 transition-colors">${tutorial.title}</h3>
-                            <p class="text-dark-400 text-sm mb-4">${tutorial.description}</p>
-                            <div class="flex items-center gap-4 text-sm text-dark-500">
-                                <span class="flex items-center gap-1">📚 ${tutorial.lessons} Lessons</span>
-                                <span class="flex items-center gap-1">⏱️ ${tutorial.hours} Hours</span>
-                                <span class="flex items-center gap-1">⭐ ${tutorial.rating}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
         function renderAITools() {
             const grid = document.getElementById('ai-tools-grid');
             grid.innerHTML = aiTools.map(tool => {
@@ -471,7 +447,18 @@ async function loadData() {
 }
         type();
         startCounters();
-loadData();        
-let fuck = document.getElementById('fuck');
-let taxi = document.getElementById('taxi');
-taxi.innerHTML = `<h1 class="text-blue-500 text-2xl text-center bg-red-500"> Fuck </h1>`
+loadData(); 
+// ========== ATTACH FUNCTIONS TO GLOBAL SCOPE ==========
+// This makes all your functions accessible to HTML onclick handlers
+window.filterArticles = filterArticles;
+window.loadMoreArticles = loadMoreArticles;
+window.toggleSearch = toggleSearch;
+window.toggleMobile = toggleMobile;
+window.toggleTheme = toggleTheme;
+window.handleNewsletter = handleNewsletter;
+window.handleContact = handleContact;
+window.showPage = showPage;
+window.closePages = closePages;
+window.acceptCookies = acceptCookies;
+window.declineCookies = declineCookies;
+window.handleSearch = handleSearch;
