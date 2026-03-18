@@ -1,10 +1,7 @@
+// vite.config.js
 import { defineConfig } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  plugins: [
-    tailwindcss({
-      config: './tailwind.config.js', // 👈 THIS LINE FIXES EVERYTHING
-    }),
-  ],
+  plugins: [tailwindcss()],
 })
